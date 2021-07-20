@@ -14,8 +14,11 @@
 				<div class="metadata">Ecrit le {{ article.createdAt | date('d/m/y') }} à {{ article.createdAt | date('H:i') }} Dans la catégorie Politique</div>
 				<div class="content">
 					<img src="{{ article.image }}" alt="">
+					<br />
 					{{ article.content | raw }}
+					<br />
                     <a href="{{ asset(path('blog_show', {'id':article.id})) }}" class="btn btn-primary">Lire la suite</a>
+					<a href="{{ asset(path('blog_edit', {'id':article.id})) }}" class="btn btn-primary">Modifier l'article</a>
 				</div>
 			</article>
 		{% endfor %}
