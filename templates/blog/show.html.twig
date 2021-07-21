@@ -7,10 +7,48 @@
 			{{ article.createdAt | date('d/m/y') }}
 			à
 			{{ article.createdAt | date('H:i') }}
-			Dans la catégorie Politique</div>
+			dans la catégorie
+			{{ article.category.title }}
+		</div>
 		<div class="content">
+			<br/>
 			<img src="{{ article.image }}" alt="">
+			<br/>
 			{{ article.content | raw }}
+			<br/>
 		</div>
 	</article>
+	
+	{{ form_start(formComment) }}
+
+	{{ form_row(formComment.author, {'attr': {'placeholder': "Auteur"}}) }}
+
+	{{ form_row(formComment.content, {'attr': {'placeholder': "Commentaire"}})  }}
+
+	<button type="submit" class="btn btn-success">
+		{% if editMode %}
+			Enregistrer la modification
+		{% else %}
+			Ajouter le commentaire
+		{% endif %}
+	</button>
+
+	{{ form_end(formComment) }}
+
+	<section id="commentaires">
+		{% for comment in article.comments %}
+			<div class="comment">
+				<div class="row">
+					<div class="col-3">
+						{{ comment.author }}
+						(<small>{{comment.createdAt | date('d/m/Y à H:i')}}</small>)
+					</div>
+					<div class="col">
+						{{ comment.content | raw}}
+					</div>
+				</div>
+				<a href="{{ asset(path('blog_modify_comment', {'id_article':article.id, 'id_comment':comment.id})) }}" class="btn btn-primary">Modifier le commentaire</a>
+			</div>
+		{% endfor %}
+	</section>
 {% endblock %}
