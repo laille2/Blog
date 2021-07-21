@@ -20,8 +20,8 @@
 					<br />
 					{{ article.content | raw }}
 					<br />
-                    <a href="{{ asset(path('blog_show', {'id':article.id})) }}" class="btn btn-primary">Lire la suite</a>
-					<a href="{{ asset(path('blog_edit', {'id':article.id})) }}" class="btn btn-primary">Modifier l'article</a>
+                    <a href="{{ asset(path('blog_show', {'id_article':article.id})) }}" class="btn btn-primary">Lire la suite</a>
+					<a href="{{ asset(path('blog_edit', {'id_article':article.id})) }}" class="btn btn-primary">Modifier l'article</a>
 				</div>
 			</article>
 		{% endfor %}
