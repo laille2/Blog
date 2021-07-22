@@ -18,24 +18,10 @@
 			<br/>
 		</div>
 	</article>
-	
-	{{ form_start(formComment) }}
-
-	{{ form_row(formComment.author, {'attr': {'placeholder': "Auteur"}}) }}
-
-	{{ form_row(formComment.content, {'attr': {'placeholder': "Commentaire"}})  }}
-
-	<button type="submit" class="btn btn-success">
-		{% if editMode %}
-			Enregistrer la modification
-		{% else %}
-			Ajouter le commentaire
-		{% endif %}
-	</button>
-
-	{{ form_end(formComment) }}
 
 	<section id="commentaires">
+		<h2>{{ article.comments | length }}
+			commentaire(s) :</h2>
 		{% for comment in article.comments %}
 			<div class="comment">
 				<div class="row">
@@ -50,5 +36,22 @@
 				<a href="{{ asset(path('blog_modify_comment', {'id_article':article.id, 'id_comment':comment.id})) }}" class="btn btn-primary">Modifier le commentaire</a>
 			</div>
 		{% endfor %}
+		{% if app.user %}
+			{{ form_start(formComment) }}
+
+			{{ form_row(formComment.author, {'attr': {'placeholder': "Auteur"}}) }}
+
+			{{ form_row(formComment.content, {'attr': {'placeholder': "Commentaire"}})  }}
+
+			<button type="submit" class="btn btn-success">
+				{% if editMode %}
+					Enregistrer la modification
+				{% else %}
+					Ajouter le commentaire
+				{% endif %}
+			</button>
+
+			{{ form_end(formComment) }}
+		{% endif %}
 	</section>
 {% endblock %}

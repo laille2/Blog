@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -20,7 +21,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
-
+    
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
@@ -34,9 +35,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Length(min=8, minMessage="MINIMUM 8 !!!!!!!!!!!!!!!!!!!!")
+     * @Assert\EqualTo(propertyPath="confirm_password", message="pas le meme mot de passe")
      */
     private $password;
 
+    /**
+     * @Assert\EqualTo(propertyPath="password")
+     */
     private $confirm_password;
 
     /**
